@@ -55,7 +55,7 @@ def GetNewsFromWorldNewsAPI(query,from_time,to_time,num_results_to_return=3):
 
 
 if __name__=="__main__":
-    query="Narendra Modi Stadium"
+    query="RFK Jr."
     from_time="2025-01-26 00:00:00"
     to_time="2025-01-27 00:00:00"
 

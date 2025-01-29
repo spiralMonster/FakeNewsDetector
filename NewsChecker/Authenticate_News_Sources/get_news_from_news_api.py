@@ -41,7 +41,7 @@ def GetNewsFromNewsAPI(query,from_date,to_date,num_results_to_return=3):
     return news_articles
 
 if __name__=="__main__":
-    query="Coldplay concert at Narendra Modi stadium with Jasprit Bumrah"
+    query=""
     from_date="2025-01-01"
     to_date="2025-01-28"
 
@@ -51,3 +51,5 @@ if __name__=="__main__":
         to_date=to_date
     )
     print(news_articles)
+
+

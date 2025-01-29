@@ -32,5 +32,5 @@ def EntityExtractor(news):
 
 if __name__=="__main__":
     print(EntityExtractor("""
-COLDPLAY HONOURING JASPRIT BUMRAH AT THE NARENDRA MODI STADIUM
+    Breitbart Reports On Bill Gates Being Caught Red Handed Running A Fraudulent Scheme Against President Trump & RFK Jr.
     """))

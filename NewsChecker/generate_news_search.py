@@ -33,7 +33,7 @@ def NewsSearchGenerator(news_entities):
 
 
 if __name__=="__main__":
-    entities=['COLDPLAY', 'JASPRIT BUMRAH', 'NARENDRA MODI STADIUM']
+    entities=['Breitbart', 'Bill Gates', 'President Trump', 'RFK Jr.']
     news_query=NewsSearchGenerator(entities)
     print(news_query)
 
