@@ -3,3 +3,5 @@
 /SemanticAnalyzer/LSTM_model/.ipynb_checkpoints
 /SemanticAnalyzer/MlModel/.ipynb_checkpoints
 /SemanticAnalyzer/Data/lstm_model_processed_data.csv
+/SemanticAnalyzer/Data/.ipynb_checkpoints
+/SemanticAnalyzer/Data/glove.6B.100d.txt
