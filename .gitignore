@@ -1,2 +1,5 @@
 .env
 /SemanticAnalyzer/.ipynb_checkpoints
+/SemanticAnalyzer/LSTM_model/.ipynb_checkpoints
+/SemanticAnalyzer/MlModel/.ipynb_checkpoints
+/SemanticAnalyzer/Data/lstm_model_processed_data.csv
