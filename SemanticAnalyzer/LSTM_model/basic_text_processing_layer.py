@@ -1,5 +1,6 @@
 import tensorflow as tf
-from tensorflow.keras.layers import Layer,Dense,LSTM,Bidirection
+from tensorflow.keras.layers import Layer,Dense,LSTM,Bidirectional
+from typing import List
 
 # lstm_layer_config=[
 #     {
@@ -21,7 +22,7 @@ from tensorflow.keras.layers import Layer,Dense,LSTM,Bidirection
 # ]
 
 class BasicTextProcessingLayer(Layer):
-    def __init__(lstm_layer_config,dense_layer_config,**kwargs):
+    def __init__(self,lstm_layer_config:List,dense_layer_config:List,**kwargs):
         super().__init__(**kwargs)
         self.lstm_layer_config=lstm_layer_config
         self.dense_layer_config=dense_layer_config
@@ -31,7 +32,7 @@ class BasicTextProcessingLayer(Layer):
         for config in self.lstm_layer_config:
             if config['bidirection']:
                 self.lstm_layers.append(
-                    Bidirection(
+                    Bidirectional(
                         LSTM(
                             units=config["units"],
                             activation=config["activation"],
@@ -61,12 +62,19 @@ class BasicTextProcessingLayer(Layer):
                 )
             )
             
+         
     def call(self,x):
-        for lstm_layer in self.lstm_layers:
+        ind=0
+        while ind<len(self.lstm_layers):
+            lstm_layer=self.lstm_layers[ind]
             x=lstm_layer(x)
+            ind+=1
             
-        for dense_layer in self.dense_layers:
+        ind=0
+        while ind<len(self.dense_layers):
+            dense_layer=self.dense_layers[ind]
             x=dense_layer(x)
+            ind+=1
 
         return x
         

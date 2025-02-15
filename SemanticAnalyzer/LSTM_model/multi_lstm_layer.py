@@ -48,13 +48,14 @@ class MultiLSTMLayer(Layer):
         )
         
         # Initializing Multi Lstm models:
-        self.multi_lstm_models=[
-            BasicTextProcessingLayer(
-                lstm_layer_config=self.basic_text_processing_layer_config["lstm_layer_config"],
-                dense_layer_config=self.basic_text_processing_layer_config["dense_layer_config"]
+        self.multi_lstm_models=[]
+        for _ in range(self.num_models):
+            self.multi_lstm_models.append(
+                BasicTextProcessingLayer(
+                    lstm_layer_config=self.basic_text_processing_layer_config["lstm_layer_config"],
+                    dense_layer_config=self.basic_text_processing_layer_config["dense_layer_config"]
+                )
             )
-            for _ in range(self.num_models)
-        ]
         
         
         # Initializing final layers:
@@ -63,7 +64,7 @@ class MultiLSTMLayer(Layer):
         self.final_layers=[
             Dense(units=2* output_dim_after_multi_lstm_layers,activation="relu",kernel_initializer="he_uniform"),
             Dense(units=int(0.5* output_dim_after_multi_lstm_layers),activation="relu",kernel_initializer="he_uniform"),
-            Dropout(0.3)
+            Dropout(0.3),
             Dense(units=16,activation="relu",kernel_initializer="he_uniform"),
             Dense(units=4,activation="relu",kernel_initializer="he_uniform"),
             Dense(units=1,activation="sigmoid",kernel_initializer="glorot_uniform")
@@ -76,14 +77,20 @@ class MultiLSTMLayer(Layer):
         
         model_outputs=[]
         ind=0
-        for inp in model.inputs:
-            out=self.multi_lstm_models[ind](inp)
-            model.outputs.append(out)
+        while ind<self.num_models:
+            model=self.multi_lstm_models[ind]
+            inp=model_inputs[ind]
+            out=model(inp)
+            model_outputs.append(out)
+            ind+=1
             
         final_out=Concatenate(axis=-1)(model_outputs)
         
-        for layer in self.final_layers:
+        ind=0
+        while ind<len(self.final_layers):
+            layer=self.final_layers[ind]
             final_out=layer(final_out)
+            ind+=1
             
         return final_out
         
@@ -95,10 +102,10 @@ class MultiLSTMLayer(Layer):
         config.update(
             {
                 "basic_text_processing_layer_config":self.basic_text_processing_layer_config,
-                "embedding_matrix":self..embedding_matrix,
+                "embedding_matrix":self.embedding_matrix,
                 "num_models":self.num_models,
-                "vocab_size":self..vocab_size,
-                "embedding_output_dim"=self.embedding_output_dim
+                "vocab_size":self.vocab_size,
+                "embedding_output_dim":self.embedding_output_dim
             }
         )
         return config
