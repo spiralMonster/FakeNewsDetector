@@ -1,4 +1,5 @@
 import os
+import time
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -29,11 +30,13 @@ def NewsSearchGenerator(news_entities):
     prompt=ChatPromptTemplate.from_template(template=template,input_variable=["entities"])
     news_search_gen_chain=prompt|llm
     news_query=news_search_gen_chain.invoke({"entities":news_entities}).news_search_query
+    print("News Search Query generated....")
+    time.sleep(3)
     return news_query
 
 
 if __name__=="__main__":
-    entities=['Breitbart', 'Bill Gates', 'President Trump', 'RFK Jr.']
+    entities=['Delhi Railway station', '18 dead', 'several injured']
     news_query=NewsSearchGenerator(entities)
     print(news_query)
 

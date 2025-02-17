@@ -42,8 +42,8 @@ def GetNewsFromNewsAPI(query,from_date,to_date,num_results_to_return=3):
 
 if __name__=="__main__":
     query=""
-    from_date="2025-01-01"
-    to_date="2025-01-28"
+    from_date="2025-02-01"
+    to_date="2025-12-15"
 
     news_articles=GetNewsFromNewsAPI(
         query=query,

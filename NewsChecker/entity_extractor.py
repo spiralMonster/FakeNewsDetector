@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 from NewsChecker.entity_extractor_specs import EntityExtractorSpecs
+import time
 load_dotenv()
+
 
 def EntityExtractor(news):
     llm=ChatGoogleGenerativeAI(
@@ -28,9 +30,12 @@ def EntityExtractor(news):
 
     entity_extractor_chain=prompt|llm
     entities=entity_extractor_chain.invoke({"news":news}).entities
+    print("Entities extracted...")
+    time.sleep(3)
     return entities
 
 if __name__=="__main__":
     print(EntityExtractor("""
-    Breitbart Reports On Bill Gates Being Caught Red Handed Running A Fraudulent Scheme Against President Trump & RFK Jr.
+    Delhi Railway station stampede LIVE: 18 dead, several injured; two-member committee formed to probe
+
     """))
